@@ -27,10 +27,13 @@
 
   // 没有初始化的dpr则，根据pixel去计算
   if (!scale) {
-    dpr = win.devicePixelRatio;
+    dpr = win.devicePixelRatio || 1;
 
-    // 添加字体标识，现在似乎都用rem来写字体了，保存在这里。
-    // 考虑到android上回出现devicePixelRatio非整数
+    // 添加字体标识，现在似乎都用流行直接用rem来写字体
+    // 考虑到android上回出现devicePixelRatio非整数，确实用rem会当字体会更直接一点
+    // 因为下面这些判断实际上字体也是不对的。而且这样只处理了3中dpr的情况
+    // 这里保留一下，来兼容老的版本
+
     if (dpr >= 3) {
       dpr = 3
     } else if (dpr >= 2){
